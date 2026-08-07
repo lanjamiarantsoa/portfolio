@@ -75,13 +75,32 @@ p {
 }
 
 .eyebrow {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
     font-family: var(--font-mono);
     font-size: 0.82rem;
     font-weight: 500;
     color: var(--teal);
     margin-bottom: 14px;
     letter-spacing: 0.02em;
+}
+
+.eyebrow::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--teal);
+    box-shadow: 0 0 0 0 rgba(52, 209, 196, 0.5);
+    animation: pulse-dot 2.4s infinite;
+    flex-shrink: 0;
+}
+
+.section-head {
+    position: relative;
+    padding-top: 2px;
+    margin-bottom: 44px;
 }
 
 .section-title {
@@ -93,10 +112,6 @@ p {
     max-width: 520px;
     color: var(--fg-400);
     font-size: 1rem;
-}
-
-.section-head {
-    margin-bottom: 44px;
 }
 
 .highlight {
@@ -133,6 +148,30 @@ textarea:focus-visible {
     transform: translateY(0);
 }
 
+/* ==================== BARRE DE PROGRESSION (SIGNAL) ==================== */
+.signal-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 2px;
+    width: 0%;
+    background: linear-gradient(90deg, var(--amber), var(--teal));
+    z-index: 200;
+    transition: width 0.1s ease-out;
+}
+
+/* ==================== GRAIN GLOBAL ==================== */
+body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    pointer-events: none;
+    opacity: 0.035;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
 /* ==================== NAVIGATION ==================== */
 .navbar {
     background-color: rgba(10, 14, 19, 0.85);
@@ -141,6 +180,31 @@ textarea:focus-visible {
     position: sticky;
     top: 0;
     z-index: 100;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.navbar.scrolled {
+    background-color: rgba(10, 14, 19, 0.97);
+    border-color: var(--line);
+}
+
+.nav-links a.active {
+    color: var(--amber);
+    position: relative;
+}
+
+.nav-links a.active.nav-cta {
+    border-color: var(--amber);
+}
+
+.nav-links a.active:not(.nav-cta)::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -6px;
+    height: 1px;
+    background: var(--amber);
 }
 
 .nav-container {
@@ -232,6 +296,37 @@ section {
     opacity: 0.18;
     mask-image: radial-gradient(ellipse 70% 60% at 50% 20%, #000 40%, transparent 100%);
     pointer-events: none;
+}
+
+.hero-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.55;
+    pointer-events: none;
+}
+
+.hero-glow {
+    position: absolute;
+    width: 420px;
+    height: 420px;
+    border-radius: 50%;
+    filter: blur(110px);
+    pointer-events: none;
+    opacity: 0.16;
+}
+
+.hero-glow-amber {
+    background: var(--amber);
+    top: -120px;
+    left: -80px;
+}
+
+.hero-glow-teal {
+    background: var(--teal);
+    bottom: -160px;
+    right: -100px;
 }
 
 .hero-content {
@@ -348,11 +443,48 @@ section {
 }
 
 .terminal-window {
+    position: relative;
     background-color: var(--ink-900);
     border: 1px solid var(--line);
     border-radius: var(--radius);
     overflow: hidden;
     box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+    transform-style: preserve-3d;
+    will-change: transform;
+    transition: transform 0.15s ease-out;
+}
+
+.photo-pin {
+    position: absolute;
+    top: -22px;
+    right: 28px;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 8px 10px;
+    background-color: var(--ink-800);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    transform: rotate(4deg);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4);
+    transition: transform 0.25s ease;
+}
+
+.hero-terminal:hover .photo-pin {
+    transform: rotate(0deg) translateY(-2px);
+}
+
+.photo-pin .avatar-circle {
+    width: 56px;
+    height: 56px;
+    border-radius: 6px;
+}
+
+.photo-pin .avatar-caption {
+    font-size: 0.68rem;
+    color: var(--fg-400);
 }
 
 .terminal-bar {
@@ -389,15 +521,6 @@ section {
 .terminal-body {
     padding: 22px 20px 26px;
     min-height: 300px;
-}
-
-.avatar-chip {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 18px;
-    padding-bottom: 18px;
-    border-bottom: 1px dashed var(--line);
 }
 
 .avatar-circle {
@@ -462,34 +585,82 @@ section {
 
 /* ==================== CARTES : COMPÉTENCES / PROJETS ==================== */
 .skills-grid, .projects-grid {
+    counter-reset: proj;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 22px;
 }
 
+.project-card {
+    counter-increment: proj;
+}
+
+.project-card::after {
+    content: 'P.' counter(proj, decimal-leading-zero);
+    position: absolute;
+    top: 20px;
+    right: 22px;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--fg-400);
+    letter-spacing: 0.02em;
+}
+
 .skill-card, .project-card {
+    position: relative;
     background: var(--ink-900);
     padding: 26px;
     border-radius: var(--radius);
     border: 1px solid var(--line);
-    transition: transform 0.25s ease, border-color 0.25s ease, background-color 0.25s ease;
+    overflow: hidden;
+    transition: transform 0.25s ease, border-color 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.skill-card::before, .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--amber), var(--teal));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.35s ease;
 }
 
 .skill-card:hover, .project-card:hover {
     transform: translateY(-6px);
     background: var(--ink-800);
     border-color: var(--amber-dim);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+}
+
+.skill-card:hover::before, .project-card:hover::before {
+    transform: scaleX(1);
 }
 
 .skill-card-head {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 14px;
     margin-bottom: 4px;
 }
 
+.skill-card-head .icon-chip {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background: var(--ink-800);
+    border: 1px solid var(--line);
+}
+
 .skill-card-head i {
-    font-size: 1.2rem;
+    font-size: 1.05rem;
     color: var(--amber);
 }
 
@@ -567,11 +738,30 @@ section {
 }
 
 .timeline-date {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     font-family: var(--font-mono);
     font-size: 0.8rem;
     font-weight: 500;
     color: var(--amber);
     margin-bottom: 6px;
+}
+
+.commit-hash {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: var(--fg-400);
+    background: var(--ink-800);
+    border: 1px solid var(--line);
+    padding: 1px 7px;
+    border-radius: 5px;
+}
+
+.commit-hash::before {
+    content: '#';
+    color: var(--teal);
 }
 
 .timeline-item .company {
@@ -604,6 +794,18 @@ section {
 }
 
 .contact-form { flex: 1; min-width: 280px; }
+
+.contact-window {
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+}
+
+.contact-body {
+    padding: 26px 24px 22px;
+}
+
+.contact-body form {
+    margin: 0;
+}
 
 .contact-info {
     flex: 0.8;
@@ -643,7 +845,7 @@ input, textarea {
     padding: 13px 16px;
     border: 1px solid var(--line);
     border-radius: var(--radius-sm);
-    background: var(--ink-900);
+    background: var(--ink-950);
     color: var(--fg-100);
     font-family: var(--font-body);
     font-size: 0.95rem;
@@ -746,6 +948,11 @@ footer {
     .hero-terminal {
         order: -1;
     }
+
+    .photo-pin {
+        top: -18px;
+        right: 20px;
+    }
 }
 
 @media (max-width: 768px) {
@@ -774,4 +981,16 @@ footer {
 
     .timeline { padding-left: 22px; }
     .timeline-node { left: -27.5px; }
+
+    .photo-pin {
+        transform: rotate(0deg);
+        top: -16px;
+        right: 16px;
+        padding: 6px 6px 8px;
+    }
+
+    .photo-pin .avatar-circle {
+        width: 46px;
+        height: 46px;
+    }
 }
