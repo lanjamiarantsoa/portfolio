@@ -1,3 +1,43 @@
+// ==================== BARRE DE PROGRESSION (SIGNAL) ====================
+const signalBar = document.getElementById('signal-bar');
+const navbarEl = document.querySelector('.navbar');
+
+function updateSignalBar() {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    if (signalBar) {
+        signalBar.style.width = progress + '%';
+    }
+    if (navbarEl) {
+        navbarEl.classList.toggle('scrolled', scrollTop > 12);
+    }
+}
+
+window.addEventListener('scroll', updateSignalBar, { passive: true });
+updateSignalBar();
+
+// ==================== LIEN DE NAVIGATION ACTIF ====================
+const navAnchors = document.querySelectorAll('.nav-links a[href^="#"]');
+const trackedSections = Array.from(navAnchors)
+    .map(a => document.querySelector(a.getAttribute('href')))
+    .filter(Boolean);
+
+if (trackedSections.length) {
+    const navObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const id = entry.target.getAttribute('id');
+                navAnchors.forEach(a => {
+                    a.classList.toggle('active', a.getAttribute('href') === `#${id}`);
+                });
+            }
+        });
+    }, { rootMargin: '-45% 0px -45% 0px', threshold: 0 });
+
+    trackedSections.forEach(section => navObserver.observe(section));
+}
+
 // ==================== MENU MOBILE ====================
 const menuToggle = document.getElementById('mobile-menu');
 const navLinks = document.getElementById('nav-links');
@@ -41,6 +81,24 @@ if (profilePhoto) {
         avatarCircle.classList.remove('has-photo');
     };
 }
+
+// ==================== HASH DE COMMIT (TIMELINE) ====================
+function hashFromText(text) {
+    let hash = 0;
+    for (let i = 0; i < text.length; i++) {
+        hash = (hash << 5) - hash + text.charCodeAt(i);
+        hash |= 0;
+    }
+    return Math.abs(hash).toString(16).padStart(7, '0').slice(0, 7);
+}
+
+document.querySelectorAll('.timeline-item').forEach(item => {
+    const title = item.querySelector('h3');
+    const hashSpan = item.querySelector('.commit-hash');
+    if (title && hashSpan) {
+        hashSpan.textContent = hashFromText(title.textContent.trim());
+    }
+});
 
 // ==================== TERMINAL HERO (EFFET DE FRAPPE) ====================
 const terminalLinesEl = document.getElementById('terminal-lines');
@@ -134,6 +192,122 @@ if (terminalLinesEl) {
             typeTerminal();
         }
     }
+}
+
+// ==================== TILT 3D DU TERMINAL ====================
+const terminalWindowEl = document.getElementById('terminal-window');
+if (terminalWindowEl && !prefersReducedMotion && window.matchMedia('(hover: hover)').matches) {
+    const maxTilt = 5;
+
+    terminalWindowEl.addEventListener('mousemove', (e) => {
+        const rect = terminalWindowEl.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width;
+        const y = (e.clientY - rect.top) / rect.height;
+        const tiltX = (0.5 - y) * maxTilt * 2;
+        const tiltY = (x - 0.5) * maxTilt * 2;
+        terminalWindowEl.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
+    });
+
+    terminalWindowEl.addEventListener('mouseleave', () => {
+        terminalWindowEl.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+    });
+}
+
+// ==================== CANVAS RÉSEAU (HERO) ====================
+const networkCanvas = document.getElementById('network-canvas');
+if (networkCanvas && !prefersReducedMotion) {
+    const ctx = networkCanvas.getContext('2d');
+    const heroSection = document.querySelector('.hero');
+    let nodes = [];
+    let animationId = null;
+    let running = false;
+
+    function resizeCanvas() {
+        const rect = heroSection.getBoundingClientRect();
+        networkCanvas.width = rect.width;
+        networkCanvas.height = rect.height;
+    }
+
+    function initNodes() {
+        const count = Math.max(18, Math.floor((networkCanvas.width * networkCanvas.height) / 45000));
+        nodes = Array.from({ length: count }, () => ({
+            x: Math.random() * networkCanvas.width,
+            y: Math.random() * networkCanvas.height,
+            vx: (Math.random() - 0.5) * 0.25,
+            vy: (Math.random() - 0.5) * 0.25
+        }));
+    }
+
+    function drawFrame() {
+        ctx.clearRect(0, 0, networkCanvas.width, networkCanvas.height);
+        const linkDistance = 150;
+
+        nodes.forEach(node => {
+            node.x += node.vx;
+            node.y += node.vy;
+            if (node.x < 0 || node.x > networkCanvas.width) node.vx *= -1;
+            if (node.y < 0 || node.y > networkCanvas.height) node.vy *= -1;
+        });
+
+        for (let i = 0; i < nodes.length; i++) {
+            for (let j = i + 1; j < nodes.length; j++) {
+                const dx = nodes[i].x - nodes[j].x;
+                const dy = nodes[i].y - nodes[j].y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < linkDistance) {
+                    ctx.strokeStyle = `rgba(52, 209, 196, ${0.12 * (1 - dist / linkDistance)})`;
+                    ctx.lineWidth = 1;
+                    ctx.beginPath();
+                    ctx.moveTo(nodes[i].x, nodes[i].y);
+                    ctx.lineTo(nodes[j].x, nodes[j].y);
+                    ctx.stroke();
+                }
+            }
+        }
+
+        nodes.forEach(node => {
+            ctx.fillStyle = 'rgba(233, 162, 59, 0.45)';
+            ctx.beginPath();
+            ctx.arc(node.x, node.y, 1.6, 0, Math.PI * 2);
+            ctx.fill();
+        });
+
+        animationId = requestAnimationFrame(drawFrame);
+    }
+
+    function startAnimation() {
+        if (running) return;
+        running = true;
+        resizeCanvas();
+        initNodes();
+        drawFrame();
+    }
+
+    function stopAnimation() {
+        running = false;
+        if (animationId) cancelAnimationFrame(animationId);
+    }
+
+    const canvasObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                startAnimation();
+            } else {
+                stopAnimation();
+            }
+        });
+    }, { threshold: 0.05 });
+
+    canvasObserver.observe(heroSection);
+
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            resizeCanvas();
+            initNodes();
+        }, 200);
+    });
 }
 
 // ==================== ENVOI DIRECT D'EMAIL (WEB3FORMS) ====================
