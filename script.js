@@ -82,49 +82,34 @@ if (profilePhoto) {
     };
 }
 
-// ==================== HASH DE COMMIT (TIMELINE) ====================
-function hashFromText(text) {
-    let hash = 0;
-    for (let i = 0; i < text.length; i++) {
-        hash = (hash << 5) - hash + text.charCodeAt(i);
-        hash |= 0;
-    }
-    return Math.abs(hash).toString(16).padStart(7, '0').slice(0, 7);
-}
-
-document.querySelectorAll('.timeline-item').forEach(item => {
-    const title = item.querySelector('h3');
-    const hashSpan = item.querySelector('.commit-hash');
-    if (title && hashSpan) {
-        hashSpan.textContent = hashFromText(title.textContent.trim());
-    }
-});
-
 // ==================== TERMINAL HERO (EFFET DE FRAPPE) ====================
 const terminalLinesEl = document.getElementById('terminal-lines');
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-// Chaque entrée : une ligne de commande (prompt) suivie de lignes de sortie (out/accent)
+// Contenu de la carte profil, présenté comme un fichier ouvert dans une fenêtre,
+// mais entièrement en langage clair (aucune commande à connaître pour le lire).
 const terminalScript = [
-    { type: 'prompt', text: 'whoami' },
-    { type: 'out', text: 'LANJAMIARANTSOA Edson Landry' },
-    { type: 'prompt', text: 'cat role.txt' },
-    { type: 'out', text: 'Étudiant L3 Informatique — EMIT' },
-    { type: 'accent', text: 'Développeur Full-Stack & Réseaux' },
-    { type: 'prompt', text: 'ls competences/' },
-    { type: 'out', text: 'Java  Spring-Boot  React  Flutter  PostgreSQL  Réseaux' },
-    { type: 'prompt', text: 'status --check' },
-    { type: 'accent', text: '● En ligne — ouvert aux stages et projets freelance' }
+    { type: 'label', text: 'Nom' },
+    { type: 'value', text: 'LANJAMIARANTSOA Edson Landry' },
+    { type: 'spacer' },
+    { type: 'label', text: 'Rôle' },
+    { type: 'value', text: 'Étudiant en L3 Informatique — EMIT' },
+    { type: 'value', text: 'Développeur Full-Stack & Réseaux' },
+    { type: 'spacer' },
+    { type: 'label', text: 'Compétences clés' },
+    { type: 'value', text: 'Java · Spring Boot · React · Flutter · PostgreSQL' },
+    { type: 'spacer' },
+    { type: 'label', text: 'Disponibilité' },
+    { type: 'value-accent', text: '● En ligne — ouvert aux stages et projets freelance' }
 ];
 
 function renderStaticTerminal() {
     const html = terminalScript.map(line => {
-        if (line.type === 'prompt') {
-            return `<span class="prompt">$ ${escapeHtml(line.text)}</span>`;
-        }
-        const cls = line.type === 'accent' ? 'accent' : 'out';
-        return `<span class="${cls}">${escapeHtml(line.text)}</span>`;
-    }).join('\n');
+        if (line.type === 'spacer') return '';
+        const cls = line.type === 'label' ? 'label' : (line.type === 'value-accent' ? 'value-accent' : 'value');
+        const prefix = cls === 'label' ? '' : '  ';
+        return `<span class="${cls}">${prefix}${escapeHtml(line.text)}</span>`;
+    }).filter(Boolean).join('\n');
     terminalLinesEl.innerHTML = html + '<span class="term-cursor"></span>';
 }
 
@@ -136,28 +121,29 @@ function escapeHtml(str) {
 
 async function typeTerminal() {
     for (const line of terminalScript) {
-        const lineSpan = document.createElement('span');
-        if (line.type === 'prompt') {
-            lineSpan.className = 'prompt';
-        } else if (line.type === 'accent') {
-            lineSpan.className = 'accent';
-        } else {
-            lineSpan.className = 'out';
+        if (line.type === 'spacer') {
+            terminalLinesEl.appendChild(document.createTextNode('\n'));
+            await sleep(140);
+            continue;
         }
+
+        const lineSpan = document.createElement('span');
+        const cls = line.type === 'label' ? 'label' : (line.type === 'value-accent' ? 'value-accent' : 'value');
+        lineSpan.className = cls;
         terminalLinesEl.appendChild(lineSpan);
 
-        const prefix = line.type === 'prompt' ? '$ ' : '';
+        const prefix = cls === 'label' ? '' : '  ';
         const fullText = prefix + line.text;
         let shown = '';
 
         for (let i = 0; i < fullText.length; i++) {
             shown += fullText[i];
             lineSpan.textContent = shown;
-            await sleep(line.type === 'prompt' ? 28 : 12);
+            await sleep(cls === 'label' ? 32 : 14);
         }
 
         terminalLinesEl.appendChild(document.createTextNode('\n'));
-        await sleep(line.type === 'prompt' ? 160 : 260);
+        await sleep(cls === 'label' ? 140 : 280);
     }
 
     const cursor = document.createElement('span');
@@ -322,7 +308,7 @@ if (contactForm) {
         const originalLabel = submitBtn.innerHTML;
 
         submitBtn.disabled = true;
-        submitBtn.innerHTML = '<span>$ sending...</span>';
+        submitBtn.innerHTML = '<span>Envoi en cours...</span>';
 
         try {
             const response = await fetch('https://api.web3forms.com/submit', {
