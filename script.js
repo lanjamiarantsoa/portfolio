@@ -16,13 +16,29 @@ document.querySelectorAll('.nav-links a').forEach(link => {
     });
 });
 
-// ==================== GESTION DE LA PHOTO DE PROFIL ====================
+// ==================== INTERSECTION OBSERVER (ANIMATIONS AU SCROLL) ====================
+const observerOptions = {
+    threshold: 0.15
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+        }
+    });
+}, observerOptions);
+
+document.querySelectorAll('.animate-on-scroll').forEach(el => {
+    observer.observe(el);
+});
+
+// ==================== PHOTO DE PROFIL ====================
 const profilePhoto = document.getElementById('profile-photo');
 const avatarCircle = document.querySelector('.avatar-circle');
-const photoPath = 'profil.jpg';
 
 if (profilePhoto) {
-    profilePhoto.src = photoPath;
+    profilePhoto.src = 'profil.jpg';
     profilePhoto.onload = () => {
         avatarCircle.classList.add('has-photo');
     };
@@ -31,7 +47,7 @@ if (profilePhoto) {
     };
 }
 
-// ==================== FORMULAIRE DE CONTACT ====================
+// ==================== ENVOI DIRECT D'EMAIL (WEB3FORMS) ====================
 const contactForm = document.getElementById('contactForm');
 const formFeedback = document.getElementById('formFeedback');
 
@@ -39,30 +55,28 @@ if (contactForm) {
     contactForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         
-        const name = document.getElementById('name').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const message = document.getElementById('message').value.trim();
         const submitBtn = document.getElementById('submitBtn');
-        
-        if (!name || !email || !message) {
-            showFeedback('Veuillez remplir tous les champs.', 'error');
-            return;
-        }
-        
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-            showFeedback('Veuillez entrer une adresse email valide.', 'error');
-            return;
-        }
+        const formData = new FormData(contactForm);
         
         submitBtn.disabled = true;
         submitBtn.textContent = 'Envoi en cours...';
         
         try {
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            showFeedback('✅ Message envoyé avec succès ! Je vous répondrai rapidement.', 'success');
-            contactForm.reset();
+            const response = await fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                body: formData
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                showFeedback('✅ Message envoyé avec succès ! Il arrivera directement sur ta boîte Gmail.', 'success');
+                contactForm.reset();
+            } else {
+                showFeedback('❌ Erreur lors de l’envoi. Pense à remplacer VOTRE_CLE_WEB3FORMS_ICI dans le HTML !', 'error');
+            }
         } catch (error) {
-            showFeedback('❌ Une erreur est survenue. Merci de réessayer.', 'error');
+            showFeedback('❌ Erreur de connexion réseau. Veuillez réessayer.', 'error');
         } finally {
             submitBtn.disabled = false;
             submitBtn.textContent = 'Envoyer le message';
@@ -77,7 +91,7 @@ function showFeedback(message, type) {
         setTimeout(() => {
             formFeedback.textContent = '';
             formFeedback.className = 'feedback-msg';
-        }, 5000);
+        }, 6000);
     }
 }
 
@@ -86,31 +100,3 @@ const yearSpan = document.getElementById('year');
 if (yearSpan) {
     yearSpan.textContent = new Date().getFullYear();
 }
-
-// ==================== HIGHLIGHT DES LIENS NAVIGATION AU SCROLL ====================
-function updateActiveNavLink() {
-    const sections = document.querySelectorAll('section');
-    const navItems = document.querySelectorAll('.nav-links a');
-    let current = '';
-
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        if (window.scrollY >= sectionTop - 150) {
-            current = section.getAttribute('id');
-        }
-    });
-
-    navItems.forEach(item => {
-        const href = item.getAttribute('href').substring(1);
-        if (href === current) {
-            item.style.color = 'var(--primary-light)';
-            item.style.fontWeight = '600';
-        } else {
-            item.style.color = '';
-            item.style.fontWeight = '';
-        }
-    });
-}
-
-window.addEventListener('scroll', updateActiveNavLink);
-window.addEventListener('load', updateActiveNavLink);
