@@ -43,10 +43,10 @@
                     <div class="btn-group">
                         <a href="#projets" class="btn btn-primary">Voir mes projets</a>
                         <a href="https://wa.me/261380805552?text=Bonjour%20Edson,%20j'ai%20vu%20ton%20portfolio%20et%20je%20souhaite%20discuter%20avec%20toi!" target="_blank" class="btn btn-whatsapp">
-                            <i class="fab fa-whatsapp"></i> Discuter sur WhatsApp
+                            <i class="fab fa-whatsapp"></i> WhatsApp
                         </a>
                         <a href="cv.pdf" class="btn btn-outline" id="download-cv" download>
-                            <i class="fas fa-download"></i> Télécharger mon CV
+                            <i class="fas fa-download"></i> Mon CV
                         </a>
                     </div>
                 </div>
@@ -107,6 +107,23 @@
                         <div class="project-info">
                             <h3>Gestion de Pharmacie</h3>
                             <p>Gestion des médicaments, stocks, facturation et génération automatique de rapports.</p>
+                            <div class="project-tech">
+                                <span>React</span>
+                                <span>Node.js</span>
+                                <span>MySQL</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-card animate-on-scroll">
+                        <div class="project-img"><i class="fas fa-hospital-user"></i></div>
+                        <div class="project-info">
+                            <h3>Gestion d'Infirmerie</h3>
+                            <p>Suivi des consultations, dossiers médicaux, hospitalisations et prescriptions.</p>
+                            <div class="project-tech">
+                                <span>React</span>
+                                <span>Spring Boot</span>
+                                <span>PostgreSQL</span>
+                            </div>
                         </div>
                     </div>
                     <div class="project-card animate-on-scroll">
@@ -114,7 +131,59 @@
                         <div class="project-info">
                             <h3>Assistant IA - Analyse CV</h3>
                             <p>Extraction automatique de compétences, comparaison avec des offres d'emploi.</p>
+                            <div class="project-tech">
+                                <span>Python</span>
+                                <span>FastAPI</span>
+                                <span>IA</span>
+                            </div>
                         </div>
+                    </div>
+                    <div class="project-card animate-on-scroll">
+                        <div class="project-img"><i class="fas fa-notes-medical"></i></div>
+                        <div class="project-info">
+                            <h3>TherapyApp</h3>
+                            <p>Application mobile de suivi et prise de rendez-vous entre patients et thérapeutes.</p>
+                            <div class="project-tech">
+                                <span>Flutter</span>
+                                <span>Dart</span>
+                                <span>Supabase</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== FORMATION & EXPÉRIENCE ==================== -->
+        <section id="formation">
+            <div class="container">
+                <h2 class="section-title animate-on-scroll">🎓 Parcours Académique</h2>
+                <div class="timeline">
+                    <div class="timeline-item animate-on-scroll">
+                        <div class="timeline-date">En cours</div>
+                        <h3>Troisième année de licence (L3 Informatique)</h3>
+                        <p>École de Management et d'Innovation Technologique (EMIT) - Fianarantsoa</p>
+                    </div>
+                    <div class="timeline-item animate-on-scroll">
+                        <div class="timeline-date">2022 - 2023</div>
+                        <h3>Baccalauréat Scientifique (Série C)</h3>
+                        <p>Lycée Saint François Xavier - Fianarantsoa</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience">
+            <div class="container">
+                <h2 class="section-title animate-on-scroll">💼 Expérience Professionnelle</h2>
+                <div class="timeline">
+                    <div class="timeline-item animate-on-scroll">
+                        <div class="timeline-date">Stage</div>
+                        <h3>Stagiaire Développeur</h3>
+                        <p>Direction Régionale de l'Administration Pénitentiaire Haute Matsiatra</p>
+                        <ul>
+                            <li>Développement du système d'information de l'infirmerie.</li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -126,9 +195,8 @@
                 <h2 class="section-title animate-on-scroll">📬 Me contacter</h2>
                 <div class="contact-container">
                     <div class="contact-form animate-on-scroll">
-                        <!-- Formulaire connecté à Web3Forms -->
                         <form id="contactForm">
-                            <!-- Remplace par ta vraie clé Web3Forms obtenable sur https://web3forms.com/ -->
+                            <!-- Met ta clef d'accès Web3Forms ici -->
                             <input type="hidden" name="access_key" value="VOTRE_CLE_WEB3FORMS_ICI">
                             <input type="hidden" name="subject" value="Nouveau message depuis ton Portfolio EdsonDev !">
                             
@@ -166,7 +234,7 @@
     </a>
 
     <footer>
-        <p>&copy; <span id="year"></span> Edson Landry LANJAMIARANTSOA</p>
+        <p>&copy; <span id="year"></span> Edson Landry LANJAMIARANTSOA - EMIT</p>
     </footer>
 
     <script src="script.js"></script>
