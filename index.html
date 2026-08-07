@@ -3,19 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Portfolio d'Edson Landry LANJAMIARANTSOA - Étudiant en Licence 3 Informatique">
+    <meta name="description" content="Portfolio de LANJAMIARANTSOA Edson Landry - Développeur Full Stack & Étudiant L3 Informatique">
     <title>Edson Landry | Portfolio Développeur</title>
     
+    <!-- FontAwesome & Google Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+    <!-- ==================== NAVIGATION ==================== -->
     <nav class="navbar">
         <div class="nav-container">
-            <div class="logo">&lt;EdsonDev/&gt;</div>
+            <div class="logo">&lt;LanjaDev/&gt;</div>
             <div class="menu-toggle" id="mobile-menu">
                 <i class="fas fa-bars"></i>
             </div>
@@ -35,9 +37,9 @@
         <section id="accueil" class="hero">
             <div class="container hero-content">
                 <div class="hero-text">
-                    <div class="badge">👋 Étudiant en Licence 3 Informatique</div>
+                    <div class="badge">👋 Développeur Full Stack & Étudiant L3</div>
                     <h1>Salut, je suis <span class="highlight">Edson Landry</span></h1>
-                    <p>Étudiant en Licence 3 à l'École de Management et d'Innovation Technologique (EMIT) Fianarantsoa, parcours Développement d'Application Internet et Intranet. Passionné et motivé par l'informatique et la création de solutions applicatives modernes.</p>
+                    <p>Étudiant en Licence 3 à l'École de Management et d'Innovation Technologique (EMIT) Fianarantsoa, spécialisé en Développement Web, Mobile, IA et Réseaux. Passionné par la création de solutions applicatives performantes et modernes.</p>
                     <div class="btn-group">
                         <a href="#projets" class="btn btn-primary">Voir mes projets</a>
                         <a href="#contact" class="btn btn-outline">Me contacter</a>
@@ -62,28 +64,53 @@
                 <div class="skills-grid">
                     <div class="skill-card">
                         <i class="fas fa-code"></i>
-                        <h3>Développement Logiciel & Web</h3>
+                        <h3>Langages & Frameworks</h3>
                         <div class="skill-tags">
-                            <span>Java (Spring-boot)</span>
-                            <span>JS (React, Node.js)</span>
+                            <span>Java (Spring Boot)</span>
+                            <span>JavaScript / React (Vite)</span>
+                            <span>Node.js / Express.js</span>
+                            <span>Python (FastAPI)</span>
+                            <span>C# (.NET)</span>
+                            <span>C++ / C</span>
                             <span>PHP (Laravel)</span>
                         </div>
                     </div>
                     <div class="skill-card">
-                        <i class="fas fa-microchip"></i>
-                        <h3>Électronique & Système</h3>
+                        <i class="fas fa-mobile-alt"></i>
+                        <h3>Mobile & IoT / Embarqué</h3>
                         <div class="skill-tags">
-                            <span>Programmation Arduino</span>
-                            <span>Programmation Réseau</span>
+                            <span>Flutter & Dart</span>
+                            <span>Arduino / C++</span>
+                            <span>System & Microcontrôleurs</span>
                         </div>
                     </div>
                     <div class="skill-card">
                         <i class="fas fa-database"></i>
-                        <h3>Bases de données & Design</h3>
+                        <h3>Bases de données & Cloud</h3>
                         <div class="skill-tags">
-                            <span>MySQL</span>
                             <span>PostgreSQL</span>
-                            <span>Design Graphique</span>
+                            <span>MySQL</span>
+                            <span>Supabase</span>
+                            <span>SQL Server</span>
+                        </div>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fas fa-network-wired"></i>
+                        <h3>Réseaux & Infrastructure</h3>
+                        <div class="skill-tags">
+                            <span>Cisco Packet Tracer</span>
+                            <span>Routage & Switches</span>
+                            <span>VLAN</span>
+                            <span>TCP/IP</span>
+                        </div>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fas fa-paint-brush"></i>
+                        <h3>Design & Outils</h3>
+                        <div class="skill-tags">
+                            <span>Figma (UX/UI)</span>
+                            <span>Git & GitHub</span>
+                            <span>VS Code</span>
                         </div>
                     </div>
                 </div>
@@ -95,62 +122,145 @@
             <div class="container">
                 <h2 class="section-title">📁 Mes projets & Réalisations</h2>
                 <div class="projects-grid">
+
+                    <div class="project-card">
+                        <div class="project-img">
+                            <i class="fas fa-pills"></i>
+                        </div>
+                        <div class="project-info">
+                            <h3>Gestion de Pharmacie</h3>
+                            <p>Gestion complète des médicaments, achats, ventes, stocks, facturation et génération automatique de rapports.</p>
+                            <div class="project-tech">
+                                <span>React + Vite</span>
+                                <span>Node.js</span>
+                                <span>Express.js</span>
+                                <span>MySQL/PostgreSQL</span>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="project-card">
                         <div class="project-img">
                             <i class="fas fa-hospital-user"></i>
                         </div>
                         <div class="project-info">
-                            <h3>Java Web (Spring-Boot & React)</h3>
-                            <p>Conception et réalisation d'une application de Gestion de l'infirmerie (Suivi des consultations, du stock de médicaments).</p>
+                            <h3>Gestion d'Infirmerie</h3>
+                            <p>Suivi des consultations, dossiers médicaux des patients/détenus, hospitalisations, prescriptions et alertes.</p>
                             <div class="project-tech">
-                                <span>Spring-Boot</span>
-                                <span>React</span>
+                                <span>React / Spring Boot</span>
+                                <span>Node.js</span>
                                 <span>PostgreSQL</span>
                             </div>
                         </div>
                     </div>
+
                     <div class="project-card">
                         <div class="project-img">
-                            <i class="fas fa-mobile-alt"></i>
+                            <i class="fas fa-brain"></i>
                         </div>
                         <div class="project-info">
-                            <h3>Dart (Flutter) & Supabase</h3>
-                            <p><strong>TherapyApp</strong> : Conception et réalisation d'une application de mise en relation et de suivi entre patients et thérapeutes.</p>
+                            <h3>Assistant IA - Analyse Santé & CV</h3>
+                            <p>Analyse automatique de CV, extraction de compétences, comparaison avec des offres d'emploi et conseils d'amélioration.</p>
                             <div class="project-tech">
-                                <span>Flutter</span>
-                                <span>Supabase</span>
-                                <span>Dart</span>
+                                <span>Python</span>
+                                <span>FastAPI</span>
+                                <span>IA / Machine Learning</span>
                             </div>
                         </div>
                     </div>
+
                     <div class="project-card">
                         <div class="project-img">
-                            <i class="fas fa-network-wired"></i>
+                            <i class="fas fa-graduation-cap"></i>
                         </div>
                         <div class="project-info">
-                            <h3>Programmation Réseau et Arduino</h3>
-                            <p>Réalisation d'une application de <strong>Système de présence</strong> avec pointage automatisé.</p>
+                            <h3>Accompagnement Académique IA</h3>
+                            <p>Projet en conception : suivi des notes/absences, prédiction de réussite et création de plannings intelligents de révision.</p>
                             <div class="project-tech">
-                                <span>Arduino</span>
-                                <span>Réseau</span>
-                                <span>C++</span>
+                                <span>React</span>
+                                <span>Node.js</span>
+                                <span>Python</span>
+                                <span>Scikit-learn</span>
                             </div>
                         </div>
                     </div>
+
                     <div class="project-card">
                         <div class="project-img">
                             <i class="fas fa-calendar-alt"></i>
                         </div>
                         <div class="project-info">
-                            <h3>ASP.NET</h3>
-                            <p>Conception et Réalisation d'une application de Gestion des emplois du temps et des salles de l'EMIT (planification des cours, détection des conflits d'horaires).</p>
+                            <h3>Gestion Emploi du Temps & Bibliothèque</h3>
+                            <p>Planification des cours, détection des conflits de salles pour l'EMIT, et gestion des emprunts de livres en bibliothèque.</p>
                             <div class="project-tech">
-                                <span>ASP.NET</span>
                                 <span>C#</span>
+                                <span>.NET</span>
                                 <span>SQL Server</span>
                             </div>
                         </div>
                     </div>
+
+                    <div class="project-card">
+                        <div class="project-img">
+                            <i class="fas fa-id-card-alt"></i>
+                        </div>
+                        <div class="project-info">
+                            <h3>Système de Présence Automatisé</h3>
+                            <p>Système embarqué IoT pour l'enregistrement et le suivi automatique de présence en temps réel.</p>
+                            <div class="project-tech">
+                                <span>Arduino</span>
+                                <span>C++</span>
+                                <span>IoT</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-img">
+                            <i class="fas fa-notes-medical"></i>
+                        </div>
+                        <div class="project-info">
+                            <h3>TherapyApp (Mobile)</h3>
+                            <p>Application mobile de mise en relation et de suivi des séances entre patients et thérapeutes.</p>
+                            <div class="project-tech">
+                                <span>Flutter</span>
+                                <span>Dart</span>
+                                <span>Supabase</span>
+                                <span>PostgreSQL</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-img">
+                            <i class="fas fa-motorcycle"></i>
+                        </div>
+                        <div class="project-info">
+                            <h3>Vente de Motos en Ligne (UX/UI)</h3>
+                            <p>Conception ergonomique et création d'un prototype mobile interactif complet pour une application e-commerce.</p>
+                            <div class="project-tech">
+                                <span>Figma</span>
+                                <span>Prototypage Mobile</span>
+                                <span>UX/UI</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-img">
+                            <i class="fas fa-network-wired"></i>
+                        </div>
+                        <div class="project-info">
+                            <h3>Infrastructures Réseaux Cisco</h3>
+                            <p>Configuration de routeurs/switches, sous-réseaux, routage dynamique et mise en place de VLANs.</p>
+                            <div class="project-tech">
+                                <span>Cisco Packet Tracer</span>
+                                <span>VLAN</span>
+                                <span>TCP/IP</span>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </section>
@@ -161,16 +271,15 @@
                 <h2 class="section-title">🎓 Études & Diplômes</h2>
                 <div class="timeline">
                     <div class="timeline-item">
-                        <div class="timeline-date">2024 - 2025</div>
-                        <h3>Troisième année de licence (L3)</h3>
+                        <div class="timeline-date">2025 - 2026</div>
+                        <h3>Troisième année de licence (L3 Informatique)</h3>
                         <p>École de Management et d'Innovation Technologique (EMIT) - Fianarantsoa</p>
-                        <p class="timeline-location">Mention Informatique - Parcours Développement d'Application Internet et Intranet</p>
+                        <p class="timeline-location">Parcours Développement d'Application Internet et Intranet</p>
                     </div>
                     <div class="timeline-item">
                         <div class="timeline-date">2022 - 2023</div>
-                        <h3>Baccalauréat Scientifique - Série C</h3>
+                        <h3>Baccalauréat Scientifique (Série C)</h3>
                         <p>Lycée Saint François Xavier - Fianarantsoa Ambatomena</p>
-                        <p class="timeline-location">Mention Passable</p>
                     </div>
                 </div>
             </div>
@@ -186,8 +295,16 @@
                         <h3>Stagiaire Développeur</h3>
                         <p>Direction Régionale de l'Administration pénitentiaire Haute Matsiatra</p>
                         <ul>
-                            <li>Conception et réalisation d'une application de Gestion de l'infirmerie</li>
-                            <li>Suivi des consultations, gestion des dossiers médicaux des détenus et suivi du stock de médicaments</li>
+                            <li>Conception et réalisation d'une application de Gestion de l'infirmerie avec Java Spring Boot.</li>
+                            <li>Suivi des consultations, gestion des dossiers médicaux des détenus et gestion du stock de médicaments.</li>
+                        </ul>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">Janvier 2025</div>
+                        <h3>Assistant Cybercafé</h3>
+                        <p>Cybercafé Tsaramandroso - Fianarantsoa</p>
+                        <ul>
+                            <li>Accueil et assistance aux clients, maintenance du parc informatique et gestion du matériel.</li>
                         </ul>
                     </div>
                     <div class="timeline-item">
@@ -195,16 +312,7 @@
                         <h3>Stagiaire Développeur</h3>
                         <p>Don Bosco - Fianarantsoa</p>
                         <ul>
-                            <li>Gestion des notes des élèves</li>
-                            <li>Conception et réalisation d'une application de gestion des matériels</li>
-                        </ul>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-date">2024</div>
-                        <h3>Saisisseur</h3>
-                        <p>Saint François Xavier Ambatomena</p>
-                        <ul>
-                            <li>Saisisseur du forum de Métier</li>
+                            <li>Conception et réalisation d'une application de gestion des notes des élèves et du matériel.</li>
                         </ul>
                     </div>
                 </div>
@@ -216,19 +324,19 @@
             <div class="container">
                 <div class="double-grid">
                     <div class="skill-card">
-                        <h3><i class="fas fa-language"></i> Connaissances Linguistiques</h3>
+                        <h3><i class="fas fa-language"></i> Langues</h3>
                         <div class="skill-tags">
                             <span>Malagasy (Langue maternelle)</span>
-                            <span>Français (Intermédiaire)</span>
-                            <span>Anglais (Débutant)</span>
+                            <span>Français (Bien)</span>
+                            <span>Anglais (Technique)</span>
                         </div>
                     </div>
                     <div class="skill-card">
                         <h3><i class="fas fa-heart"></i> Centres d'intérêt</h3>
                         <div class="skill-tags">
                             <span>⚽ Football</span>
-                            <span>💃 Danse</span>
-                            <span>🎵 Musique</span>
+                            <span>♟️ Jeux d'échecs</span>
+                            <span>🎵 Musique (Midi / DAO)</span>
                         </div>
                     </div>
                 </div>
@@ -258,12 +366,12 @@
                     <div class="contact-info">
                         <h3>Informations</h3>
                         <p><i class="fas fa-user"></i> Edson Landry LANJAMIARANTSOA</p>
-                        <p><i class="fas fa-map-marker-alt"></i> Tanambao 301 - Fianarantsoa, Madagascar</p>
-                        <p><i class="fas fa-phone-alt"></i> +261 38 080 55 52</p>
+                        <p><i class="fas fa-map-marker-alt"></i> Tanjombato, Antananarivo / Fianarantsoa</p>
+                        <p><i class="fas fa-phone-alt"></i> +261 38 08 055 52</p>
                         <p><i class="fas fa-envelope"></i> lanjamiarantsoa2648@gmail.com</p>
                         <div class="social-links">
-                            <a href="https://lanjamiarantsoa.github.io/portfolio/" target="_blank"><i class="fab fa-github"></i></a>
-                            <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
+                            <a href="https://github.com/lanjamiarantsoa" target="_blank"><i class="fab fa-github"></i></a>
+                            <a href="https://lanjamiarantsoa.vercel.app/" target="_blank"><i class="fas fa-globe"></i></a>
                         </div>
                     </div>
                 </div>
@@ -272,12 +380,9 @@
     </main>
 
     <footer>
-        <p>&copy; 2025 Edson Landry LANJAMIARANTSOA - Étudiant en Informatique | EMIT Fianarantsoa</p>
+        <p>&copy; <span id="year"></span> Edson Landry LANJAMIARANTSOA - Développeur Full Stack | EMIT</p>
     </footer>
 
-    <script src="script.js"></script>
-</body>
-</html>
     <script src="script.js"></script>
 </body>
 </html>
