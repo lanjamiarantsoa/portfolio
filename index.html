@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Portfolio de LANJAMIARANTSOA Edson Landry - Développeur Full Stack">
-    <title>Edson Landry | Portfolio Développeur</title>
-    
-    <!-- FontAwesome & Google Fonts -->
+    <meta name="description" content="Portfolio de LANJAMIARANTSOA Edson Landry - Développeur Full Stack & Réseaux">
+    <title>Edson Landry | Développeur Full Stack</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -17,8 +17,8 @@
     <!-- ==================== NAVIGATION ==================== -->
     <nav class="navbar">
         <div class="nav-container">
-            <div class="logo">&lt;EdsonDev/&gt;</div>
-            <div class="menu-toggle" id="mobile-menu">
+            <a href="#accueil" class="logo">~/edson<span class="cursor-blink">_</span></a>
+            <div class="menu-toggle" id="mobile-menu" aria-label="Ouvrir le menu">
                 <i class="fas fa-bars"></i>
             </div>
             <ul class="nav-links" id="nav-links">
@@ -27,7 +27,7 @@
                 <li><a href="#projets">Projets</a></li>
                 <li><a href="#formation">Formation</a></li>
                 <li><a href="#experience">Expérience</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="#contact" class="nav-cta">Contact</a></li>
             </ul>
         </div>
     </nav>
@@ -35,15 +35,19 @@
     <main>
         <!-- ==================== ACCUEIL ==================== -->
         <section id="accueil" class="hero">
+            <div class="hero-grid"></div>
             <div class="container hero-content">
                 <div class="hero-text animate-on-scroll">
-                    <div class="badge">👋 Développeur Full Stack & Étudiant L3</div>
-                    <h1>Salut, je suis <span class="highlight">LANJAMIARANTSOA Edson Landry</span></h1>
-                    <p>Étudiant en troisième année de Licence Informatique à l'EMIT (Université de Fianarantsoa), passionné par le développement d'applications web, mobile et les réseaux informatiques.</p>
-                    <p><i class="fas fa-map-marker-alt"></i> Tanjombato, Antananarivo</p>
+                    <div class="status-badge">
+                        <span class="status-dot"></span>
+                        Disponible pour stages &amp; projets freelance
+                    </div>
+                    <h1>Salut, je suis<br><span class="highlight">Edson Landry</span></h1>
+                    <p>Étudiant en troisième année de Licence Informatique à l'EMIT (Université de Fianarantsoa). Je conçois des applications web, mobile, et j'entretiens des infrastructures réseau — du code à la prise RJ45.</p>
+                    <p class="location-line"><i class="fas fa-location-dot"></i> Tanjombato, Antananarivo, Madagascar</p>
                     <div class="btn-group">
                         <a href="#projets" class="btn btn-primary">Voir mes projets</a>
-                        <a href="https://wa.me/261380805552?text=Bonjour%20Edson,%20j'ai%20vu%20ton%20portfolio!" target="_blank" class="btn btn-whatsapp">
+                        <a href="https://wa.me/261380805552?text=Bonjour%20Edson,%20j'ai%20vu%20ton%20portfolio!" target="_blank" rel="noopener" class="btn btn-whatsapp">
                             <i class="fab fa-whatsapp"></i> WhatsApp
                         </a>
                         <a href="cv.pdf" class="btn btn-outline" id="download-cv" download>
@@ -51,10 +55,27 @@
                         </a>
                     </div>
                 </div>
-                <div class="hero-avatar animate-on-scroll">
-                    <div class="avatar-circle">
-                        <img src="profil.jpg" alt="Edson Landry" id="profile-photo">
-                        <i class="fas fa-user-graduate" id="default-avatar-icon"></i>
+
+                <div class="hero-terminal animate-on-scroll">
+                    <div class="terminal-window">
+                        <div class="terminal-bar">
+                            <div class="terminal-dots">
+                                <span class="dot dot-red"></span>
+                                <span class="dot dot-yellow"></span>
+                                <span class="dot dot-green"></span>
+                            </div>
+                            <span class="terminal-title">edson@portfolio:~</span>
+                        </div>
+                        <div class="terminal-body" id="terminal-body" aria-live="polite">
+                            <div class="avatar-chip">
+                                <div class="avatar-circle">
+                                    <img src="profil.jpg" alt="Photo d'Edson Landry" id="profile-photo">
+                                    <i class="fas fa-user-graduate" id="default-avatar-icon"></i>
+                                </div>
+                                <span class="avatar-caption">// profil.jpg</span>
+                            </div>
+                            <pre class="terminal-lines" id="terminal-lines"></pre>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -63,11 +84,17 @@
         <!-- ==================== COMPÉTENCES ==================== -->
         <section id="competences">
             <div class="container">
-                <h2 class="section-title animate-on-scroll">💻 Compétences Techniques</h2>
+                <div class="section-head animate-on-scroll">
+                    <span class="eyebrow">// 01 · Compétences</span>
+                    <h2 class="section-title">Stack technique</h2>
+                    <p class="section-sub">Les outils que j'utilise au quotidien, du développement à la maintenance réseau.</p>
+                </div>
                 <div class="skills-grid">
                     <div class="skill-card animate-on-scroll">
-                        <i class="fas fa-code"></i>
-                        <h3>Programmation & Web</h3>
+                        <div class="skill-card-head">
+                            <i class="fas fa-code"></i>
+                            <h3>Programmation &amp; Web</h3>
+                        </div>
                         <div class="skill-tags">
                             <span>Java</span>
                             <span>JavaScript</span>
@@ -82,8 +109,10 @@
                         </div>
                     </div>
                     <div class="skill-card animate-on-scroll">
-                        <i class="fas fa-database"></i>
-                        <h3>Bases de données & Outils</h3>
+                        <div class="skill-card-head">
+                            <i class="fas fa-database"></i>
+                            <h3>Bases de données &amp; Outils</h3>
+                        </div>
                         <div class="skill-tags">
                             <span>PostgreSQL</span>
                             <span>MySQL</span>
@@ -93,14 +122,16 @@
                         </div>
                     </div>
                     <div class="skill-card animate-on-scroll">
-                        <i class="fas fa-network-wired"></i>
-                        <h3>Réseaux & Maintenance</h3>
+                        <div class="skill-card-head">
+                            <i class="fas fa-network-wired"></i>
+                            <h3>Réseaux &amp; Maintenance</h3>
+                        </div>
                         <div class="skill-tags">
                             <span>Routeurs</span>
                             <span>Switches</span>
                             <span>VLAN</span>
                             <span>TCP/IP</span>
-                            <span>Maintenance informatique</span>
+                            <span>Maintenance info.</span>
                         </div>
                     </div>
                 </div>
@@ -110,7 +141,11 @@
         <!-- ==================== PROJETS ==================== -->
         <section id="projets">
             <div class="container">
-                <h2 class="section-title animate-on-scroll">📁 Réalisations Principales</h2>
+                <div class="section-head animate-on-scroll">
+                    <span class="eyebrow">// 02 · Projets</span>
+                    <h2 class="section-title">Réalisations principales</h2>
+                    <p class="section-sub">Des applications construites pendant mes stages et projets personnels.</p>
+                </div>
                 <div class="projects-grid">
                     <div class="project-card animate-on-scroll">
                         <div class="project-img"><i class="fas fa-hospital-user"></i></div>
@@ -164,17 +199,22 @@
         <!-- ==================== FORMATION ==================== -->
         <section id="formation">
             <div class="container">
-                <h2 class="section-title animate-on-scroll">🎓 Études & Diplômes</h2>
+                <div class="section-head animate-on-scroll">
+                    <span class="eyebrow">// 03 · Formation</span>
+                    <h2 class="section-title">Études &amp; diplômes</h2>
+                </div>
                 <div class="timeline">
                     <div class="timeline-item animate-on-scroll">
-                        <div class="timeline-date">2025 - 2026</div>
+                        <span class="timeline-node"></span>
+                        <div class="timeline-date">2025 — 2026</div>
                         <h3>Troisième année de Licence Informatique</h3>
-                        <p>École de Management et d'Innovation Technologique (EMIT) - Université de Fianarantsoa</p>
+                        <p>École de Management et d'Innovation Technologique (EMIT) — Université de Fianarantsoa</p>
                     </div>
                     <div class="timeline-item animate-on-scroll">
-                        <div class="timeline-date">2022 - 2023</div>
+                        <span class="timeline-node"></span>
+                        <div class="timeline-date">2022 — 2023</div>
                         <h3>Baccalauréat Scientifique (Série C)</h3>
-                        <p>Lycée Saint François Xavier - Fianarantsoa Ambatomena</p>
+                        <p>Lycée Saint François Xavier — Fianarantsoa Ambatomena</p>
                     </div>
                 </div>
             </div>
@@ -183,11 +223,14 @@
         <!-- ==================== EXPÉRIENCE PROFESSIONNELLE ==================== -->
         <section id="experience">
             <div class="container">
-                <h2 class="section-title animate-on-scroll">💼 Expérience Professionnelle</h2>
+                <div class="section-head animate-on-scroll">
+                    <span class="eyebrow">// 04 · Expérience</span>
+                    <h2 class="section-title">Parcours professionnel</h2>
+                </div>
                 <div class="timeline">
-                    
-                    <!-- Stage DRAP -->
+
                     <div class="timeline-item animate-on-scroll">
+                        <span class="timeline-node"></span>
                         <div class="timeline-date">Juin 2025</div>
                         <h3>Stagiaire Développeur</h3>
                         <p class="company"><i class="fas fa-building"></i> Direction Régionale de l'Administration Pénitentiaire Haute Matsiatra</p>
@@ -201,11 +244,11 @@
                         </div>
                     </div>
 
-                    <!-- Assistant Cybercafé -->
                     <div class="timeline-item animate-on-scroll">
+                        <span class="timeline-node"></span>
                         <div class="timeline-date">Janvier 2025</div>
                         <h3>Assistant Cybercafé</h3>
-                        <p class="company"><i class="fas fa-desktop"></i> Cybercafé Tsaramandroso - Fianarantsoa</p>
+                        <p class="company"><i class="fas fa-desktop"></i> Cybercafé Tsaramandroso — Fianarantsoa</p>
                         <ul class="experience-list">
                             <li>Accueil et assistance des clients.</li>
                             <li>Maintenance informatique et gestion du matériel du cybercafé.</li>
@@ -216,11 +259,11 @@
                         </div>
                     </div>
 
-                    <!-- Stage Don Bosco -->
                     <div class="timeline-item animate-on-scroll">
+                        <span class="timeline-node"></span>
                         <div class="timeline-date">Novembre 2024</div>
                         <h3>Stagiaire Développeur</h3>
-                        <p class="company"><i class="fas fa-school"></i> Don Bosco - Fianarantsoa</p>
+                        <p class="company"><i class="fas fa-school"></i> Don Bosco — Fianarantsoa</p>
                         <ul class="experience-list">
                             <li>Gestion des notes des élèves.</li>
                             <li>Conception et réalisation d'une application de gestion des matériels.</li>
@@ -238,27 +281,37 @@
         <!-- ==================== AUTRES INFORMATIONS ==================== -->
         <section id="infos">
             <div class="container">
+                <div class="section-head animate-on-scroll">
+                    <span class="eyebrow">// 05 · Profil</span>
+                    <h2 class="section-title">Au-delà du code</h2>
+                </div>
                 <div class="skills-grid">
                     <div class="skill-card animate-on-scroll">
-                        <i class="fas fa-heart"></i>
-                        <h3>Savoir-être</h3>
+                        <div class="skill-card-head">
+                            <i class="fas fa-heart"></i>
+                            <h3>Savoir-être</h3>
+                        </div>
                         <ul class="experience-list">
-                            <li>Autonomie & adaptation</li>
+                            <li>Autonomie &amp; adaptation</li>
                             <li>Esprit d'équipe</li>
-                            <li>Curiosité & rigueur</li>
+                            <li>Curiosité &amp; rigueur</li>
                         </ul>
                     </div>
                     <div class="skill-card animate-on-scroll">
-                        <i class="fas fa-language"></i>
-                        <h3>Langues</h3>
+                        <div class="skill-card-head">
+                            <i class="fas fa-language"></i>
+                            <h3>Langues</h3>
+                        </div>
                         <ul class="experience-list">
                             <li><strong>Français :</strong> Bien</li>
                             <li><strong>Anglais :</strong> Technique</li>
                         </ul>
                     </div>
                     <div class="skill-card animate-on-scroll">
-                        <i class="fas fa-gamepad"></i>
-                        <h3>Centres d'intérêt</h3>
+                        <div class="skill-card-head">
+                            <i class="fas fa-gamepad"></i>
+                            <h3>Centres d'intérêt</h3>
+                        </div>
                         <div class="skill-tags">
                             <span>Football</span>
                             <span>Jeux d'échecs</span>
@@ -272,35 +325,42 @@
         <!-- ==================== CONTACT ==================== -->
         <section id="contact">
             <div class="container">
-                <h2 class="section-title animate-on-scroll">📬 Me contacter</h2>
+                <div class="section-head animate-on-scroll">
+                    <span class="eyebrow">// 06 · Contact</span>
+                    <h2 class="section-title">Travaillons ensemble</h2>
+                    <p class="section-sub">Une idée, un stage, un projet ? Écris-moi.</p>
+                </div>
                 <div class="contact-container">
                     <div class="contact-form animate-on-scroll">
                         <form id="contactForm">
                             <input type="hidden" name="access_key" value="d40ab44b-5bb4-4a8a-826e-331a6b69a144">
                             <input type="hidden" name="subject" value="Nouveau message depuis ton Portfolio EdsonDev !">
-                            
+
                             <div class="form-group">
+                                <label for="name">Nom</label>
                                 <input type="text" name="name" id="name" placeholder="Votre nom" required>
                             </div>
                             <div class="form-group">
+                                <label for="email">Email</label>
                                 <input type="email" name="email" id="email" placeholder="Votre email" required>
                             </div>
                             <div class="form-group">
+                                <label for="message">Message</label>
                                 <textarea name="message" id="message" rows="5" placeholder="Votre message..." required></textarea>
                             </div>
-                            <button type="submit" id="submitBtn">Envoyer le message</button>
-                            <p id="formFeedback" class="feedback-msg"></p>
+                            <button type="submit" id="submitBtn"><span>$ send --message</span></button>
+                            <p id="formFeedback" class="feedback-msg" role="status"></p>
                         </form>
                     </div>
                     <div class="contact-info animate-on-scroll">
                         <h3>Informations</h3>
                         <p><i class="fas fa-user"></i> LANJAMIARANTSOA Edson Landry</p>
-                        <p><i class="fas fa-map-marker-alt"></i> Tanjombato, Antananarivo</p>
-                        <p><i class="fas fa-phone-alt"></i> +261 38 08 055 52</p>
+                        <p><i class="fas fa-location-dot"></i> Tanjombato, Antananarivo</p>
+                        <p><i class="fas fa-phone"></i> +261 38 08 055 52</p>
                         <p><i class="fas fa-envelope"></i> lanjamiarantsoa2648@gmail.com</p>
                         <div class="social-links">
-                            <a href="https://wa.me/261380805552?text=Bonjour%20Edson!" target="_blank" class="whatsapp-icon"><i class="fab fa-whatsapp"></i></a>
-                            <a href="https://github.com/lanjamiarantsoa" target="_blank"><i class="fab fa-github"></i></a>
+                            <a href="https://wa.me/261380805552?text=Bonjour%20Edson!" target="_blank" rel="noopener" class="whatsapp-icon" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                            <a href="https://github.com/lanjamiarantsoa" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
                         </div>
                     </div>
                 </div>
@@ -308,13 +368,12 @@
         </section>
     </main>
 
-    <!-- Bouton WhatsApp Flottant -->
-    <a href="https://wa.me/261380805552?text=Bonjour%20Edson,%20j'ai%20vu%20ton%20portfolio!" class="floating-whatsapp" target="_blank" title="Discuter sur WhatsApp">
+    <a href="https://wa.me/261380805552?text=Bonjour%20Edson,%20j'ai%20vu%20ton%20portfolio!" class="floating-whatsapp" target="_blank" rel="noopener" title="Discuter sur WhatsApp" aria-label="Discuter sur WhatsApp">
         <i class="fab fa-whatsapp"></i>
     </a>
 
     <footer>
-        <p>&copy; <span id="year"></span> LANJAMIARANTSOA Edson Landry - EMIT</p>
+        <p>edson@dev:~$ echo "© <span id="year"></span> LANJAMIARANTSOA Edson Landry — EMIT"</p>
     </footer>
 
     <script src="script.js"></script>
