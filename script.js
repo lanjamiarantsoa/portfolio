@@ -8,8 +8,7 @@ if (menuToggle) {
     });
 }
 
-const links = document.querySelectorAll('.nav-links a');
-links.forEach(link => {
+document.querySelectorAll('.nav-links a').forEach(link => {
     link.addEventListener('click', () => {
         if (window.innerWidth <= 768) {
             navLinks.classList.remove('active');
@@ -20,9 +19,6 @@ links.forEach(link => {
 // ==================== GESTION DE LA PHOTO DE PROFIL ====================
 const profilePhoto = document.getElementById('profile-photo');
 const avatarCircle = document.querySelector('.avatar-circle');
-
-// CHANGE ICI LE CHEMIN VERS TA PHOTO
-// Exemple : "moi.jpg", "edson.png", "images/photo.jpg"
 const photoPath = 'profil.jpg';
 
 if (profilePhoto) {
@@ -31,14 +27,9 @@ if (profilePhoto) {
         avatarCircle.classList.add('has-photo');
     };
     profilePhoto.onerror = () => {
-        console.log('📸 Photo non trouvée. Ajoute ton image au chemin : ' + photoPath);
         avatarCircle.classList.remove('has-photo');
     };
 }
-
-// ==================== TÉLÉCHARGEMENT CV ====================
-// Le CV se télécharge directement depuis le lien dans le HTML
-// Pas besoin de code supplémentaire car le bouton a déjà l'attribut download
 
 // ==================== FORMULAIRE DE CONTACT ====================
 const contactForm = document.getElementById('contactForm');
@@ -58,7 +49,7 @@ if (contactForm) {
             return;
         }
         
-        if (!isValidEmail(email)) {
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
             showFeedback('Veuillez entrer une adresse email valide.', 'error');
             return;
         }
@@ -66,10 +57,8 @@ if (contactForm) {
         submitBtn.disabled = true;
         submitBtn.textContent = 'Envoi en cours...';
         
-        // Simulation d'envoi (à remplacer par un vrai back-end si besoin)
         try {
             await new Promise(resolve => setTimeout(resolve, 1000));
-            console.log('Message de :', name, '|', email, '|', message);
             showFeedback('✅ Message envoyé avec succès ! Je vous répondrai rapidement.', 'success');
             contactForm.reset();
         } catch (error) {
@@ -81,55 +70,36 @@ if (contactForm) {
     });
 }
 
-function isValidEmail(email) {
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return regex.test(email);
-}
-
 function showFeedback(message, type) {
     if (formFeedback) {
         formFeedback.textContent = message;
         formFeedback.className = `feedback-msg ${type}`;
         setTimeout(() => {
-            if (formFeedback) {
-                formFeedback.textContent = '';
-                formFeedback.className = 'feedback-msg';
-            }
+            formFeedback.textContent = '';
+            formFeedback.className = 'feedback-msg';
         }, 5000);
     }
 }
 
-// ==================== ANCRES DOUCES ====================
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-        const targetId = this.getAttribute('href');
-        if (targetId === '#') return;
-        const targetElement = document.querySelector(targetId);
-        if (targetElement) {
-            e.preventDefault();
-            targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-    });
-});
-
 // ==================== ANNÉE DYNAMIQUE ====================
-const footerYear = document.querySelector('footer p');
-if (footerYear) {
-    const currentYear = new Date().getFullYear();
-    footerYear.innerHTML = footerYear.innerHTML.replace('2025', currentYear);
+const yearSpan = document.getElementById('year');
+if (yearSpan) {
+    yearSpan.textContent = new Date().getFullYear();
 }
 
-// ==================== NAV ACTIVE AU SCROLL ====================
+// ==================== HIGHLIGHT DES LIENS NAVIGATION AU SCROLL ====================
 function updateActiveNavLink() {
     const sections = document.querySelectorAll('section');
     const navItems = document.querySelectorAll('.nav-links a');
     let current = '';
+
     sections.forEach(section => {
         const sectionTop = section.offsetTop;
         if (window.scrollY >= sectionTop - 150) {
             current = section.getAttribute('id');
         }
     });
+
     navItems.forEach(item => {
         const href = item.getAttribute('href').substring(1);
         if (href === current) {
